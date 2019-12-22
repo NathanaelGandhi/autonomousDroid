@@ -16,8 +16,8 @@
         <include file="$(find autonomous_droid_main)/launch/camera.launch" />
     </group>
 
-    <group if="$(arg ROBOT_BASE)">
-        <include file="$(find autonomous_droid_main)/launch/data_collection.launch" />
+    <group if="$(arg DATA_COLLECTION)">
+	<node name="data_collection" pkg="data_collection" pkg="autonomous_droid_main" />
     </group>
 
 </group>
