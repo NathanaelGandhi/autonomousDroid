@@ -1,0 +1,25 @@
+<launch>
+
+<arg name="namespace" default="nclml" /> #Nathanael's Camera, Lidar, Mapping and Localisation
+
+<group ns="$(arg namespace)">
+
+    <arg name="IMU"             value="1"   />
+    <arg name="CAMERA"          value="1"   />
+    <arg name="ROBOT_BASE"      value="0"   />
+
+    <group if="$(arg IMU)">
+        <include file="$(find autonomous_droid_main)/launch/imu.launch" />
+    </group>
+
+    <group if="$(arg CAMERA)">
+        <include file="$(find autonomous_droid_main)/launch/camera.launch" />
+    </group>
+
+    <group if="$(arg ROBOT_BASE)">
+#        <include file="$(find nclml_robot)/launch/robot_base.launch" />
+    </group>
+
+</group>
+
+</launch>
