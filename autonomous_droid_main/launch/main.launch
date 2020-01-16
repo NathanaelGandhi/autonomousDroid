@@ -22,8 +22,8 @@
 
         <group if="$(arg RECORD)">
                 <node pkg="rosbag" type="record" name="rosbag_record"
-                args="record -o /rosbags --all" />
-#                args="record -o /rosbags /droid_main/camera/image_raw /droid_main/imu/info" />
+                args="record -o /rosbags --all" />      # Record all topics
+#                args="record -o /rosbags /droid_main/camera/color/image_raw /droid_main/imu/info" />         # Record specific topics
         </group>
 </group>
 

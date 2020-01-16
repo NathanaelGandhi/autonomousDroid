@@ -1,0 +1,24 @@
+#include "ros/ros.h"
+#include "autonomous_droid_main/FusedData.h"
+
+
+int main(int argc char **argv){
+	ros::init(argc, argv, "data_collection");
+        ros::Nodehandle n;
+        ROS_INFO_STREAM("[DC] Starting data collection node.");
+
+                // Publisher
+        ros::Publisher fused_data_pub = n.advertise<autonomous_droid_main::FusedData>("fused_data", 1000);
+
+        ros::Rate loop_rate(30);
+        int count = 0; // A count of how many messages we have sent. This is used to create a unique string for each message
+        while(ros::ok()){
+                autonomous_droid_main/FusedData msg;
+                fused_data_pub.publish(msg);
+                ros::spinOnce();
+                loop_rate.sleep();
+                count++;
+        }
+
+	return 0;
+}

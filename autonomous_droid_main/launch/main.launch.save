@@ -1,0 +1,24 @@
+<launch>
+
+<arg name="namespace" default="droid_main" />
+
+<group ns="$(arg namespace)">
+
+    <arg name="IMU"             value="1"   />
+    <arg name="CAMERA"          value="1"   />
+    <arg name="DATA_COLLECTION" value="1"   />
+
+    <group if="$(arg IMU)">
+        <include file="$(find autonomous_droid_main)/launch/imu.launch" />
+    </group>
+
+    <group if="$(arg CAMERA)">
+        <include file="$(find autonomous_droid_main)/launch/camera.launch" />
+    </group>
+
+    <group if="$(arg DATA_COLLECTION)">
+pkg="um7" type="um7_driver" name="imu_driver"    </group>
+
+</group>
+
+</launch>
