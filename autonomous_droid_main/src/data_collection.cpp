@@ -21,7 +21,7 @@ int main(int argc char **argv){
         //Publishers
         ros::Publisher fused_data_pub = n.advertise<autonomous_droid_main::FusedData>("fused_data",1000);
 
-        ros::Rate loop_rate(30);
+        ros::Rate loop_rate(20); //imu only publishes at 20hz
         int count = 0;
         while(ros::ok()){
                 autonomous_droid_main::FusedData msg;
