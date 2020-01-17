@@ -19,8 +19,8 @@ int main(int argc, char** argv)
 	ROS_INFO_STREAM("[DC] Starting data collection node.");
 	ros::init(argc, argv, "data_collection");
         ros::NodeHandle nh;
-        message_filters::Subscriber<Image> image1_sub(nh, "image1", 1);
-        message_filters::Subscriber<Image> image2_sub(nh, "image2", 1);
+        message_filters::Subscriber<Image> camera_sub(nh, "camera/color/image_raw", 1);
+        message_filters::Subscriber<Image> image2_sub(nh, "camera/depth/image_rect_raw", 1);
 
         typedef sync_policies::ApproximateTime<Image, Image> MySyncPolicy;
         // ApproximateTime takes a queue size as its constructor argument, hence MySyncPolicy(10)
