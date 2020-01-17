@@ -11,6 +11,8 @@ find_package(catkin REQUIRED
 	roscpp
         std_msgs
         message_generation
+        message_filters
+        sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions
