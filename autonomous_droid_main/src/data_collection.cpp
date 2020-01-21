@@ -22,7 +22,9 @@ int main(int argc, char** argv)
         ros::NodeHandle nh;
         message_filters::Subscriber<Image> camera_sub(nh, "camera/color/image_raw", 1);
         message_filters::Subscriber<Image> depth_sub(nh, "camera/depth/image_rect_raw", 1);
-        message_filters::Subscriber<Imu> imu_sub(nh, "imu/data", 1);
+        message_filters::Subscriber<Imu> imu_sub(nh, "imu/data", 1); //gives speed
+//        message_filters::Subscriber<Joy> controller_input_sub(nh, "imu/data", 1); //gives input steering angle, throttle and brake
+//        message_filters::Subscriber<JointState> joint_states_sub(nh, "imu/data", 1); //gives servo output steering angle
 
         typedef sync_policies::ApproximateTime<Image, Image, Imu> MySyncPolicy;
         // ApproximateTime takes a queue size as its constructor argument, hence MySyncPolicy(10)
