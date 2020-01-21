@@ -4,9 +4,9 @@
 
 <group ns="$(arg namespace)">
 
-        <arg name="IMU"                 value="1"       />
-        <arg name="CAMERA"              value="1"       />
-        <arg name="DATA_COLLECTION"     value="0"       />
+        <arg name="IMU"                 value="0"       />
+        <arg name="CAMERA"              value="0"       />
+        <arg name="DATA_COLLECTION"     value="1"       />
         <arg name="RECORD"              value="0"       />
         <group if="$(arg IMU)">
                 <include file="$(find autonomous_droid_main)/launch/imu.launch" />
@@ -17,7 +17,7 @@
         </group>
 
         <group if="$(arg DATA_COLLECTION)">
-	        <node name="data_collection" pkg="data_collection" pkg="autonomous_droid_main" />
+	        <node name="data_collection" pkg="autonomous_droid_main" type="data_collection" />
         </group>
 
         <group if="$(arg RECORD)">

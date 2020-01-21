@@ -1,5 +1,6 @@
 #include <ros/ros.h>
 #include <sensor_msgs/Image.h>
+#include <sensor_msgs/Imu.h>
 #include <message_filters/subscriber.h>
 #include <message_filters/synchronizer.h>
 #include <message_filters/sync_policies/approximate_time.h>
@@ -9,7 +10,7 @@
 using namespace sensor_msgs;
 using namespace message_filters;
 
-void callback(const ImageConstPtr& image1, const ImageConstPtr& image2)
+void callback(const ImageConstPtr& image1, const ImageConstPtr& image2, const ImuConstPtr& imu1)
 {
   // Solve all of perception here...
 }
@@ -20,12 +21,13 @@ int main(int argc, char** argv)
 	ros::init(argc, argv, "data_collection");
         ros::NodeHandle nh;
         message_filters::Subscriber<Image> camera_sub(nh, "camera/color/image_raw", 1);
-        message_filters::Subscriber<Image> image2_sub(nh, "camera/depth/image_rect_raw", 1);
+        message_filters::Subscriber<Image> depth_sub(nh, "camera/depth/image_rect_raw", 1);
+        message_filters::Subscriber<Imu> imu_sub(nh, "imu/data", 1);
 
-        typedef sync_policies::ApproximateTime<Image, Image> MySyncPolicy;
+        typedef sync_policies::ApproximateTime<Image, Image, Imu> MySyncPolicy;
         // ApproximateTime takes a queue size as its constructor argument, hence MySyncPolicy(10)
-        Synchronizer<MySyncPolicy> sync(MySyncPolicy(10), image1_sub, image2_sub);
-        sync.registerCallback(boost::bind(&callback, _1, _2));
+        Synchronizer<MySyncPolicy> sync(MySyncPolicy(10), camera_sub, depth_sub, imu_sub);
+        sync.registerCallback(boost::bind(&callback, _1, _2, _3));
 
         ros::spin();
 
